@@ -15,4 +15,11 @@ Photos are linked from Unsplash and videos from Pexels and Mixkit (all free lice
 
 ## Libraries (bundled in `assets/js/vendor`)
 
-GSAP 3.15 (ScrollTrigger, SplitText, Flip, DrawSVG, CustomEase) and Lenis 1.3. Fonts: Playfair Display and Jost (SIL Open Font Licence).
+GSAP 3.15 (ScrollTrigger, SplitText, Flip, DrawSVG, CustomEase) and Lenis 1.3. Fonts: Plus Jakarta Sans and Playfair Display (SIL Open Font Licence).
+
+Designed & developed by Siddharth Shah · Full-stack developer (frontend, backend, mobile, cloud) · linkedin.com/in/siddharth-shah26 · sidshah895@gmail.com · +91 99158 24156
+
+## Pages
+
+- `index.html` — the Rentique website. A single "designed & developed by" section sits above the footer and links to the portfolio.
+- `siddharth.html` — Siddharth Shah's portfolio: services, the Rentique case study (real screenshots in `assets/img/work/`), process, stack and a contact form that opens WhatsApp or email with the message filled in.

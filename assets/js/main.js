@@ -192,7 +192,7 @@
   function initSilk(canvas) {
     if (!canvas) return null;
     let gl;
-    try { gl = canvas.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'high-performance' }); } catch (e) { gl = null; }
+    try { gl = canvas.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'high-performance', preserveDrawingBuffer: true }); } catch (e) { gl = null; }
     if (!gl) return null;
     const vs = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
     const fs = `
@@ -944,6 +944,29 @@ void main(){
   }
 
   /* ==================================================================
+     CREATOR CHAPTER — live stats, glow cards, code reveal, credit pill
+     ================================================================== */
+  function initCreator() {
+    const sec = $('#creator');
+    if (!sec) return;
+    $$('[data-glow]', sec).forEach((card) => {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+        card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+      });
+    });
+    const pill = $('[data-credit-pill]');
+    if (pill && G) {
+      ScrollTrigger.create({ start: () => window.innerHeight * 1.6, end: () => ScrollTrigger.maxScroll(window), onToggle: (s) => pill.classList.toggle('is-on', s.isActive) });
+      ScrollTrigger.create({ trigger: sec, start: 'top bottom', end: 'max', onToggle: (s) => { if (s.isActive) pill.classList.remove('is-on'); }, onLeaveBack: () => pill.classList.add('is-on') });
+    }
+    if (!G || RM) return;
+    G.from('.byline__card', { y: 50, autoAlpha: 0, duration: 1.2, scrollTrigger: { trigger: sec, start: 'top 85%', once: true } });
+    G.from('.byline__links .mk', { y: 20, autoAlpha: 0, stagger: 0.06, duration: 0.9, delay: 0.2, scrollTrigger: { trigger: sec, start: 'top 85%', once: true } });
+  }
+
+  /* ==================================================================
      NEWSLETTER + BACK TO TOP
      ================================================================== */
   function initFooter() {
@@ -958,6 +981,12 @@ void main(){
     });
     $('[data-totop]').addEventListener('click', () => scrollTo(0, { duration: 2.2 }));
   }
+
+  try {
+    console.log('%c RENTIQUE %c Designed & developed by Siddharth Shah · linkedin.com/in/siddharth-shah26 · GSAP · ScrollTrigger · Lenis · WebGL ',
+      'background:#4E0F1A;color:#F0DDB6;font:700 12px sans-serif;padding:6px 10px;border-radius:4px 0 0 4px',
+      'background:#D9B375;color:#22070B;font:600 12px sans-serif;padding:6px 10px;border-radius:0 4px 4px 0');
+  } catch (e) {}
 
   /* ==================================================================
      BOOT
@@ -977,6 +1006,7 @@ void main(){
     introDone = true;
     if (geom) setArch(geom.w, geom.h, geom.top);
     if (G) initNavLate();
+    initCreator();
     return;
   }
 
@@ -993,6 +1023,7 @@ void main(){
   initReveals();
   initCursor();
   initNavLate();
+  initCreator();
 
   ScrollTrigger.addEventListener('refreshInit', () => { computeGeom(); });
   ScrollTrigger.addEventListener('refresh', () => { if (introDone) applyArch(); if (silk) silk.resize(); });
