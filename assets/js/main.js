@@ -107,9 +107,9 @@
     const vw = window.innerWidth;
     const vh = hero.offsetHeight;
     const portrait = portraitMQ.matches;
-    const h = portrait ? Math.min(vh * 0.46, vw * 0.92) : Math.min(vh * 0.74, vw * 0.42);
+    const h = portrait ? Math.min(vh * 0.42, vw * 0.88) : Math.min(vh * 0.74, vw * 0.42);
     const w = h / 1.4;
-    const cy = vh * (portrait ? 0.53 : 0.535);
+    const cy = vh * (portrait ? 0.61 : 0.535);
     const W = Math.max(vw * 1.1, (vh * 1.95) / 1.4);
     const H = W * 1.4;
     geom = { w, h, top: cy - h / 2, W, H, top1: vh - H + vh * 0.02, vw, vh };
@@ -159,7 +159,6 @@
       .from('.hero__video', { scale: 1.5, duration: 2.6, ease: 'expo.out' }, 0.3)
       .from('.hero__archline path', { drawSVG: '50% 50%', duration: 2.2, ease: 'expo.inOut', stagger: 0.12 }, 0.2)
       .from(titleSplit.chars, { yPercent: 118, duration: 1.5, stagger: 0.028, ease: 'expo.out' }, 0.75)
-      .from('.hero__title--outline > span', { autoAlpha: 0, duration: 1.2, ease: 'power2.out' }, 1.6)
       .from('[data-hero-ui] > *', { y: 26, autoAlpha: 0, duration: 1.2, stagger: 0.08 }, 1.25);
     return tl;
   }
@@ -218,10 +217,10 @@ void main(){
   float d=clamp(dot(n,L),0.,1.);
   vec3 H=normalize(L+vec3(0.,0.,1.));
   float nh=clamp(dot(n,H),0.,1.);
-  vec3 deep=vec3(.07,.012,.02);vec3 wine=vec3(.37,.05,.09);
+  vec3 deep=vec3(.06,.01,.018);vec3 wine=vec3(.31,.04,.075);
   vec3 col=mix(deep,wine,smoothstep(.1,1.,d));
-  col+=pow(nh,6.)*vec3(.22,.06,.05);
-  col+=pow(nh,42.)*vec3(.95,.70,.40)*.8;
+  col+=pow(nh,6.)*vec3(.12,.03,.03);
+  col+=pow(nh,42.)*vec3(.95,.70,.40)*.55;
   float vg=smoothstep(1.3,.2,length((uv-.5)*vec2(1.3,1.)));
   col*=mix(.42,1.,vg);
   col+=(fract(sin(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453)-.5)*.03;
@@ -407,11 +406,13 @@ void main(){
       });
     });
 
+    $$('.js-fade').forEach((el) => G.from(el, { y: 50, autoAlpha: 0, duration: 1.3, scrollTrigger: { trigger: el, start: 'top 86%', once: true } }));
+
     // Manifesto — words light up as you read
     const man = $('[data-words]');
     if (man) {
       const split = new SplitText(man, { type: 'words', wordsClass: 'mw' });
-      G.fromTo(split.words, { opacity: 0.14 }, { opacity: 1, stagger: 0.12, ease: 'none', scrollTrigger: { trigger: man, start: 'top 78%', end: 'bottom 50%', scrub: true } });
+      G.fromTo(split.words, { opacity: 0.3 }, { opacity: 1, stagger: 0.12, ease: 'none', scrollTrigger: { trigger: man, start: 'top 80%', end: 'bottom 62%', scrub: true } });
       $$('.pill', man).forEach((p) => {
         G.from(p, { width: 0, marginInline: 0, duration: 1.4, ease: 'expo.inOut', scrollTrigger: { trigger: p, start: 'top 82%', once: true } });
       });
@@ -703,7 +704,7 @@ void main(){
       const reels = $$('.reel');
       G.fromTo(reels[0], { rotationY: 28, x: 120, y: 80, autoAlpha: 0.3 }, { rotationY: 0, x: 0, y: 0, autoAlpha: 1, ease: 'none', scrollTrigger: { trigger: '[data-reels]', start: 'top bottom', end: 'center 55%', scrub: 1 } });
       G.fromTo(reels[2], { rotationY: -28, x: -120, y: 80, autoAlpha: 0.3 }, { rotationY: 0, x: 0, y: 0, autoAlpha: 1, ease: 'none', scrollTrigger: { trigger: '[data-reels]', start: 'top bottom', end: 'center 55%', scrub: 1 } });
-      G.fromTo(reels[1], { scale: 0.86, y: 60 }, { scale: 1, y: -20, ease: 'none', scrollTrigger: { trigger: '[data-reels]', start: 'top bottom', end: 'center 55%', scrub: 1 } });
+      G.fromTo(reels[1], { y: 70, autoAlpha: 0.4 }, { y: 0, autoAlpha: 1, ease: 'none', scrollTrigger: { trigger: '[data-reels]', start: 'top bottom', end: 'center 55%', scrub: 1 } });
     });
   }
 
