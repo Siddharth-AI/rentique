@@ -151,6 +151,7 @@
     const iv = { v: 0 };
     const g = geom;
     const titleSplit = new SplitText('[data-hero-title] .ht-l1, [data-hero-title] .ht-l2', { type: 'chars,lines', mask: 'lines', charsClass: 'hc', linesClass: 'hl' });
+    $('[data-hero-title]').classList.add('is-split');
     tl.fromTo(iv, { v: 0 }, {
       v: 1, duration: 2, ease: 'expo.inOut',
       onUpdate: () => { const h = g.h * iv.v; setArch(g.w, Math.max(h, 0.01), g.top + g.h - h); }

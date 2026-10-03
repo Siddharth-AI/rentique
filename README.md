@@ -15,4 +15,4 @@ Photos are linked from Unsplash and videos from Pexels and Mixkit (all free lice
 
 ## Libraries (bundled in `assets/js/vendor`)
 
-GSAP 3.15 (ScrollTrigger, SplitText, Flip, DrawSVG, CustomEase) and Lenis 1.3. Fonts: Bodoni Moda and Manrope (SIL Open Font Licence).
+GSAP 3.15 (ScrollTrigger, SplitText, Flip, DrawSVG, CustomEase) and Lenis 1.3. Fonts: Playfair Display and Jost (SIL Open Font Licence).
